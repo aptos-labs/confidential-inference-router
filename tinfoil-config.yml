@@ -1,0 +1,54 @@
+# Router CVM measured config for the unmodified confidential-model-router
+# (upstream v0.0.142). This file is the measured identity the release workflow
+# attests; it must match the runtime subtree of
+# rust/crates/cvmctl/vmconfig/vm-router-prod.yml in aptos-labs/atlas.
+# Shape: small_0d_v011 (8 CPU / 16384 MiB / 3 disks), hardware-measurements v0.0.40.
+cvm-version: 0.11.0
+
+shim:
+  upstream-container: router
+  upstream-port: 8089
+  paths:
+    - /v1/chat/completions
+    - /v1/completions
+    - /v1/embeddings
+    - /v1/models
+    - /health
+  dummy-attestation: false
+  publish-attestation: false
+  authenticated: false
+  tls-mode: cert-proxy
+  tls-challenge: dns
+  tls-own-san-domain: true
+  control-plane: https://ccs-public-api-0f44d76-687034466197.us-central1.run.app/
+
+cvm-network:
+  inbound-ports: [443]
+
+cpus: 8
+memory: 16384
+gpus: 0
+
+models: []
+
+containers:
+  - name: router
+    image: ghcr.io/tinfoilsh/confidential-model-router@sha256:c51e12746b17479692daabdf00608d30d682c300b0ed9fee57c50fca1b4f5ba4
+    ipc: private
+    restart: always
+    # Non-secret router settings are measured here in argv; secrets stay in the
+    # operator-side external config. Both config URLs carry their content hash.
+    command:
+      - -l=8089
+      - -C=https://ccs-public-api-0f44d76-687034466197.us-central1.run.app/
+      - -usage-reporter-id=model-router
+      - -i=REPLACE_WITH_ROUTER_CONFIG_URL@sha256:REPLACE_WITH_CONFIG_SHA256
+      - -u=REPLACE_WITH_ROUTER_CONFIG_URL@sha256:REPLACE_WITH_CONFIG_SHA256
+      - -d=host1.inference.aptoslabs.com
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8089/health"]
+      interval: 30s
+      timeout: 10s
+      start_period: 5m
+    tmpfs:
+      /tmp: size=256m,mode=1777,exec
