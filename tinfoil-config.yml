@@ -42,8 +42,8 @@ containers:
       - -l=8089
       - -C=https://ccs-public-api-0f44d76-687034466197.us-central1.run.app/
       - -usage-reporter-id=model-router
-      - -i=REPLACE_WITH_ROUTER_CONFIG_URL@sha256:REPLACE_WITH_CONFIG_SHA256
-      - -u=REPLACE_WITH_ROUTER_CONFIG_URL@sha256:REPLACE_WITH_CONFIG_SHA256
+      - -i=https://raw.githubusercontent.com/aptos-labs/confidential-inference-router/v0.0.1/config.yml@sha256:21ddbf074e41dc92f28553c125d8fa0f66a13979c1b9b69d2c8a22c813d1bca2
+      - -u=https://raw.githubusercontent.com/aptos-labs/confidential-inference-router/v0.0.1/config.yml@sha256:21ddbf074e41dc92f28553c125d8fa0f66a13979c1b9b69d2c8a22c813d1bca2
       - -d=host1.inference.aptoslabs.com
     healthcheck:
       test: ["CMD", "wget", "-q", "--spider", "http://localhost:8089/health"]
