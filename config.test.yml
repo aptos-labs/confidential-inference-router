@@ -1,11 +1,11 @@
 # Test-only router config for the Qwen debug smoke window (2026-09-03).
 # Routes the temporary Qwen3.8 debug backend on host0 while GLM is offline
 # for testing. Not a production config; production remains v0.0.1 (glm-5-3).
-# Note: aptos-labs/confidential-qwen3-8-27b has no published measurement yet,
-# so backend attestation for this enclave is expected to fail until one is
-# published (runbook A4 discovery item).
+# Note: measurements are published in aptos-labs/confidential-qwen3-8-27b-debug
+# (the prod attestation repo does not exist yet; the debug CVM publishes to
+# the -debug repo).
 models:
   qwen3-8-27b:
-    repo: aptos-labs/confidential-qwen3-8-27b
+    repo: aptos-labs/confidential-qwen3-8-27b-debug
     enclaves:
       - host0.inference.aptoslabs.com
