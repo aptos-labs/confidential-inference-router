@@ -5,7 +5,10 @@
 #   - qwen3-8-27b: fast pre-check backend (~30min boot). Serves on the
 #     host0 name during the window (GLM down; HAProxy host0 SNI -> 8443 ->
 #     the Qwen debug CVM), same as the 2026-09-03 smoke. Measurements in
-#     aptos-labs/confidential-qwen3-8-27b-debug (v0.0.5+ = post-#854 sync).
+#     aptos-labs/confidential-qwen3-8-27b-debug-2 (v0.0.5, post-#854 sync;
+#     self-administered copy of confidential-qwen3-8-27b-debug created
+#     2026-09-10 to unblock the v0.0.5 cut without waiting on repo write
+#     access to the original).
 #   - glm-5-3: full-fidelity rehearsal backend (vm-glm-5.3-debug-finalform
 #     in aptos-labs/atlas). Serves on the dedicated rehearsal name
 #     glm-debug.inference.aptoslabs.com (DNS A record + HAProxy SNI -> 8445,
@@ -13,7 +16,7 @@
 #     aptos-labs/confidential-glm-5-3-debug (v0.0.1+).
 models:
   qwen3-8-27b:
-    repo: aptos-labs/confidential-qwen3-8-27b-debug
+    repo: aptos-labs/confidential-qwen3-8-27b-debug-2
     enclaves:
       - host0.inference.aptoslabs.com
   glm-5-3:
