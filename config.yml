@@ -1,11 +1,18 @@
-# Router runtime config template for M2.
-# Publish this file from the Aptos-owned router config release repo, then put
-# its immutable raw URL@sha256:<hex> into both -i and -u in vm-router-prod.yml.
+# Router runtime config — final-form production (single-window cutover).
 #
-# host1 is the public router endpoint; host0 remains the direct GLM backend
-# throughout M2 and is never changed by the router deployment.
+# glm-5-3 resolves to the internal-name GLM backend measured at
+# aptos-labs/confidential-glm-5-3-prod v0.0.8 (priority scheduling, no KV
+# offload, shim auth): the router verifies the enclave's measurement against
+# the repo's latest release at addEnclave time. The backend is reachable only
+# via the internal name — after the HAProxy flip (window step W6) the host0
+# public SNI routes to this router, so the GLM CVM cannot keep serving the
+# host0 name (routing loop).
+#
+# The rehearsal mappings (qwen debug-2 on host0, glm-5-3-debug on
+# glm-debug) live in config.test.yml on the test/qwen-debug-smoke branch and
+# are never loaded in production.
 models:
   glm-5-3:
     repo: aptos-labs/confidential-glm-5-3-prod
     enclaves:
-      - host0.inference.aptoslabs.com
+      - glm0-internal.inference.aptoslabs.com
