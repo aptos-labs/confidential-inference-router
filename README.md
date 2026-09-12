@@ -18,15 +18,28 @@ inference fleet. Plan and runbooks: aptos-labs/atlas `deploy/h200-inference/`.
 
 ## Cutting a release
 
-1. Edit `config.yml` (add/remove models, change enclaves) and/or `tinfoil-config.yml`.
-2. Merge to main, then run the `Tinfoil Release` workflow with the new version.
-3. If `config.yml` changed: run `pin.sh <tag>` and update the `-i`/`-u` argv in
-   `tinfoil-config.yml` here AND in `vm-router-prod.yml` in atlas, then cut a follow-up
-   release — the argv change changes the router measurement, and clients pick it up via
-   latest-release trust on this repo pin.
+1. Edit `config.yml`, choose an unused release tag, and run `pin.sh <tag>` to hash the
+   exact file bytes. Update the `-i`/`-u` argv and image digest in Atlas's router manifest.
+2. Export that manifest with `cvmctl export-runtime` into `tinfoil-config.yml`. Review
+   both files, verify anonymous image pulls, and merge to main.
+3. Run the `Tinfoil Release` workflow with that same version. Verify the published
+   runtime and config bytes match the prepared hashes before applying the CVM.
 
-Self-reference note: tag vN+1's `tinfoil-config.yml` references `config.yml` from tag vN,
-because the config hash only exists once vN is published.
+The config hash can be computed before publication. Both files may use the same new
+release tag; no follow-up release is needed if those exact bytes are published.
+
+## Qwen/MiniMax candidate
+
+The v0.0.4 candidate maps `qwen3-omni` and `minimax-h3-fl2va` to the shared
+`host0.inference.aptoslabs.com` Model CVM and its `confidential-qwen-minimax-prod`
+release repository. The client-facing router uses `router.inference.aptoslabs.com`;
+never send host0's SNI to this router. The measured shim includes authenticated
+`/v1/videos/sync` passthrough, and the initial map preserves the CCS rate/overload policy.
+
+The patched image is published through GHCR from source commit
+`b8c36d88e332a361f944ec46446f9a57d5d947d3`. Publication remains gated on making the
+package anonymously pullable and provisioning production credentials; do not embed
+registry credentials in the CVM or use the staging router's secrets.
 
 ## Trust chain
 
