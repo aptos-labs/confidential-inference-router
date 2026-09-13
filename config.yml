@@ -1,18 +1,35 @@
-# Router runtime config — final-form production (single-window cutover).
-#
-# glm-5-3 resolves to the internal-name GLM backend measured at
-# aptos-labs/confidential-glm-5-3-prod v0.0.8 (priority scheduling, no KV
-# offload, shim auth): the router verifies the enclave's measurement against
-# the repo's latest release at addEnclave time. The backend is reachable only
-# via the internal name — after the HAProxy flip (window step W6) the host0
-# public SNI routes to this router, so the GLM CVM cannot keep serving the
-# host0 name (routing loop).
-#
-# The rehearsal mappings (qwen debug-2 on host0, glm-5-3-debug on
-# glm-debug) live in config.test.yml on the test/qwen-debug-smoke branch and
-# are never loaded in production.
 models:
-  glm-5-3:
-    repo: aptos-labs/confidential-glm-5-3-prod
+  qwen3-omni:
+    repo: aptos-labs/confidential-qwen-minimax-prod
     enclaves:
-      - glm0-internal.inference.aptoslabs.com
+      - host0.inference.aptoslabs.com
+    overload:
+      max_requests_waiting: 20
+      clear_requests_waiting: 10
+      retry_after_minutes: 1
+    rate_limit:
+      max_requests_per_minute: 60
+      hard_max_requests_per_minute: 120
+    cache_route:
+      mode: "off"
+      retention_window_minutes: 60
+      min_prompt_bytes: 4096
+      split_threshold_rpm: 10
+      max_inflight_delta: -1
+  minimax-h3-fl2va:
+    repo: aptos-labs/confidential-qwen-minimax-prod
+    enclaves:
+      - host0.inference.aptoslabs.com
+    overload:
+      max_requests_waiting: 20
+      clear_requests_waiting: 10
+      retry_after_minutes: 1
+    rate_limit:
+      max_requests_per_minute: 60
+      hard_max_requests_per_minute: 120
+    cache_route:
+      mode: "off"
+      retention_window_minutes: 60
+      min_prompt_bytes: 4096
+      split_threshold_rpm: 10
+      max_inflight_delta: -1
