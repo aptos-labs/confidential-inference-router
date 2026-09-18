@@ -35,6 +35,7 @@ networks:
     - tuf-repo-cdn.sigstore.dev
     - api.inference.aptoslabs.com
     - host0.inference.aptoslabs.com
+    - host1.inference.aptoslabs.com
 cpus: 8
 memory: 16384
 gpus: 0
@@ -50,8 +51,8 @@ containers:
   - -l=8089
   - -C=https://api.inference.aptoslabs.com/
   - -usage-reporter-id=model-router
-  - -i=https://raw.githubusercontent.com/aptos-labs/confidential-inference-router/v0.0.4/config.yml@sha256:ec5d341d4df094004ce4b554f15d7afc0d3cde0d519728cffb89eabccf61c8cf
-  - -u=https://raw.githubusercontent.com/aptos-labs/confidential-inference-router/v0.0.4/config.yml@sha256:ec5d341d4df094004ce4b554f15d7afc0d3cde0d519728cffb89eabccf61c8cf
+  - -i=https://raw.githubusercontent.com/aptos-labs/confidential-inference-router/v0.0.5/config.yml@sha256:493b9ca39b3385fc2a2099fa6bb443f973b66356a945e8caff731d7366a568bf
+  - -u=https://raw.githubusercontent.com/aptos-labs/confidential-inference-router/v0.0.5/config.yml@sha256:493b9ca39b3385fc2a2099fa6bb443f973b66356a945e8caff731d7366a568bf
   - -d=router.inference.aptoslabs.com
   secrets:
   - USAGE_REPORTER_SECRET
