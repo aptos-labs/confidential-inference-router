@@ -20,6 +20,10 @@ models:
     repo: aptos-labs/confidential-qwen-minimax-prod
     enclaves:
       - host0.inference.aptoslabs.com
+  glm-5.3:
+    repo: aptos-labs/confidential-glm-5-3-prod
+    enclaves:
+      - host1.inference.aptoslabs.com
     overload:
       max_requests_waiting: 20
       clear_requests_waiting: 10
