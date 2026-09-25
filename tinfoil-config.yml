@@ -51,8 +51,8 @@ containers:
   - -l=8089
   - -C=https://api.inference.aptoslabs.com/
   - -usage-reporter-id=model-router
-  - -i=https://raw.githubusercontent.com/aptos-labs/confidential-inference-router/v0.0.5/config.yml@sha256:493b9ca39b3385fc2a2099fa6bb443f973b66356a945e8caff731d7366a568bf
-  - -u=https://raw.githubusercontent.com/aptos-labs/confidential-inference-router/v0.0.5/config.yml@sha256:493b9ca39b3385fc2a2099fa6bb443f973b66356a945e8caff731d7366a568bf
+  - -i=https://raw.githubusercontent.com/aptos-labs/confidential-inference-router/v0.0.7/config.yml@sha256:4d423f4a7f507172405ade0afe8ddc656f4aa84661bd63e23c4344835457b2b9
+  - -u=https://raw.githubusercontent.com/aptos-labs/confidential-inference-router/v0.0.7/config.yml@sha256:4d423f4a7f507172405ade0afe8ddc656f4aa84661bd63e23c4344835457b2b9
   - -d=router.inference.aptoslabs.com
   secrets:
   - USAGE_REPORTER_SECRET
