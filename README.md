@@ -38,10 +38,10 @@ includes authenticated multipart `/v1/videos/sync` passthrough, and the map pres
 rate/overload policy. Earlier tags (v0.0.4-v0.0.6) routed `minimax-h3-fl2va` to
 `confidential-qwen-minimax-prod`.
 
-The patched image is published through GHCR from source commit
-`b8c36d88e332a361f944ec46446f9a57d5d947d3`. Publication remains gated on making the
-package anonymously pullable and provisioning production credentials; do not embed
-registry credentials in the CVM or use the staging router's secrets.
+The patched image (`sha256:f93683f61174a20025f07cdad7faca88f39170502ffbfde55ef88ec524c030a9`)
+is published through GHCR from source commit `dea97fa0e995cec670ae3e1c5e65df82ce27d170`.
+The package is anonymously pullable (verified 2026-10-05). Do not embed registry credentials
+in the CVM or use the staging router's secrets.
 
 ## License and source
 
@@ -49,7 +49,7 @@ The router container runs Aptos Labs' modified version of
 [tinfoilsh/confidential-model-router](https://github.com/tinfoilsh/confidential-model-router),
 licensed under the GNU Affero General Public License v3. The Corresponding Source of the
 image pinned in `tinfoil-config.yml` is source commit
-[`b8c36d88e332a361f944ec46446f9a57d5d947d3`](https://github.com/aptos-labs/confidential-model-router/tree/b8c36d88e332a361f944ec46446f9a57d5d947d3)
+[`dea97fa0e995cec670ae3e1c5e65df82ce27d170`](https://github.com/aptos-labs/confidential-model-router/tree/dea97fa0e995cec670ae3e1c5e65df82ce27d170)
 in [aptos-labs/confidential-model-router](https://github.com/aptos-labs/confidential-model-router).
 Router images built from that repository after 2026-10-05 also return the source URL of
 the running build in the `X-Source-Code` response header and at `GET /source`.
