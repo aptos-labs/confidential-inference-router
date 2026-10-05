@@ -43,6 +43,19 @@ The patched image is published through GHCR from source commit
 package anonymously pullable and provisioning production credentials; do not embed
 registry credentials in the CVM or use the staging router's secrets.
 
+## License and source
+
+The router container runs Aptos Labs' modified version of
+[tinfoilsh/confidential-model-router](https://github.com/tinfoilsh/confidential-model-router),
+licensed under the GNU Affero General Public License v3. The Corresponding Source of the
+image pinned in `tinfoil-config.yml` is source commit
+[`b8c36d88e332a361f944ec46446f9a57d5d947d3`](https://github.com/aptos-labs/confidential-model-router/tree/b8c36d88e332a361f944ec46446f9a57d5d947d3)
+in [aptos-labs/confidential-model-router](https://github.com/aptos-labs/confidential-model-router).
+Router images built from that repository after 2026-10-05 also return the source URL of
+the running build in the `X-Source-Code` response header and at `GET /source`.
+
+When you pin a new router image, update the source commit in this section in the same change.
+
 ## Trust chain
 
 Clients pin this repo (`-r aptos-labs/confidential-inference-router`) and verify the
