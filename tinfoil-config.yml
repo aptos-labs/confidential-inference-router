@@ -10,6 +10,8 @@ shim:
   - /v1/videos/sync
   - /health
   - /metrics
+  - /source
+  - /
   dummy-attestation: false
   publish-attestation: false
   authenticated: true
@@ -42,7 +44,7 @@ gpus: 0
 models: []
 containers:
 - name: router
-  image: ghcr.io/aptos-labs/confidential-model-router@sha256:a2f7cf1e50b6b440f58ce04d3f4d85d04e7b25d27325cc83f9e3fb181e105d90
+  image: ghcr.io/aptos-labs/confidential-model-router@sha256:f93683f61174a20025f07cdad7faca88f39170502ffbfde55ef88ec524c030a9
   ipc: private
   restart: always
   networks:
