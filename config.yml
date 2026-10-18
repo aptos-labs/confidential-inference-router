@@ -1,6 +1,6 @@
 models:
   qwen3-omni:
-    repo: aptos-labs/confidential-qwen-cosmos-prod
+    repo: aptos-labs/confidential-qwen-minimax-prod
     enclaves:
       - host0.inference.aptoslabs.com
     overload:
@@ -17,7 +17,7 @@ models:
       split_threshold_rpm: 10
       max_inflight_delta: -1
   minimax-h3-fl2va:
-    repo: aptos-labs/confidential-qwen-cosmos-prod
+    repo: aptos-labs/confidential-qwen-minimax-prod
     enclaves:
       - host0.inference.aptoslabs.com
   glm-5.3:
