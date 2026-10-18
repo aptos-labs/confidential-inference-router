@@ -16,7 +16,7 @@ models:
       min_prompt_bytes: 4096
       split_threshold_rpm: 10
       max_inflight_delta: -1
-  cosmos3-super:
+  minimax-h3-fl2va:
     repo: aptos-labs/confidential-qwen-cosmos-prod
     enclaves:
       - host0.inference.aptoslabs.com
