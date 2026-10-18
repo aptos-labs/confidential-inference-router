@@ -28,15 +28,13 @@ inference fleet. Plan and runbooks: aptos-labs/atlas `deploy/h200-inference/`.
 The config hash can be computed before publication. Both files may use the same new
 release tag; no follow-up release is needed if those exact bytes are published.
 
-## Qwen/Cosmos models
+## Qwen/MiniMax models
 
-`qwen3-omni` and `cosmos3-super` (NVIDIA Cosmos3-Super video generation, which replaced
-MiniMax-H3 FL2VA) map to the shared `host0.inference.aptoslabs.com` Model CVM and its
-`confidential-qwen-cosmos-prod` release repository. The client-facing router uses
-`router.inference.aptoslabs.com`; never send host0's SNI to this router. The measured shim
-includes authenticated multipart `/v1/videos/sync` passthrough, and the map preserves the CCS
-rate/overload policy. Earlier tags (v0.0.4-v0.0.6) routed `minimax-h3-fl2va` to
-`confidential-qwen-minimax-prod`.
+`qwen3-omni` and `minimax-h3-fl2va` map to the shared `host0.inference.aptoslabs.com`
+Model CVM and its `confidential-qwen-minimax-prod` release repository. The client-facing
+router uses `router.inference.aptoslabs.com`; never send host0's SNI to this router. The
+measured shim includes authenticated multipart `/v1/videos/sync` passthrough. Cosmos3-Super
+remains in the earlier `confidential-qwen-cosmos-prod` releases and is not routed here.
 
 The patched image (`sha256:f93683f61174a20025f07cdad7faca88f39170502ffbfde55ef88ec524c030a9`)
 is published through GHCR from source commit `dea97fa0e995cec670ae3e1c5e65df82ce27d170`.
