@@ -36,8 +36,8 @@ router uses `router.inference.aptoslabs.com`; never send host0's SNI to this rou
 measured shim includes authenticated multipart `/v1/videos/sync` passthrough. Cosmos3-Super
 remains in the earlier `confidential-qwen-cosmos-prod` releases and is not routed here.
 
-The patched image (`sha256:75bf27f451e4ffd54e84405715118e725b315e6a8b56a81daafcc7ace3ac507c`)
-is published through GHCR from source commit `0cf124b6b705099984f4a5f54e18d02662fdaeba`.
+The patched image (`sha256:0954949de2a7912ffc0281de63d0d4da96ffa68c9f022f825f6e4c772057c8b1`)
+is published through GHCR from source commit `9d9f5105e4635d1244f960d41b82ff044985c787`.
 The package is anonymously pullable (verified 2026-10-05). Do not embed registry credentials
 in the CVM or use the staging router's secrets.
 
@@ -47,7 +47,7 @@ The router container runs Aptos Labs' modified version of
 [tinfoilsh/confidential-model-router](https://github.com/tinfoilsh/confidential-model-router),
 licensed under the GNU Affero General Public License v3. The Corresponding Source of the
 image pinned in `tinfoil-config.yml` is source commit
-[`0cf124b6b705099984f4a5f54e18d02662fdaeba`](https://github.com/aptos-labs/confidential-model-router/tree/0cf124b6b705099984f4a5f54e18d02662fdaeba)
+[`9d9f5105e4635d1244f960d41b82ff044985c787`](https://github.com/aptos-labs/confidential-model-router/tree/9d9f5105e4635d1244f960d41b82ff044985c787)
 in [aptos-labs/confidential-model-router](https://github.com/aptos-labs/confidential-model-router).
 Router images built from that repository after 2026-10-05 also return the source URL of
 the running build in the `X-Source-Code` response header and at `GET /source`.
