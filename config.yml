@@ -24,6 +24,7 @@ models:
     repo: aptos-labs/confidential-glm-5-3-prod
     enclaves:
       - host1.inference.aptoslabs.com
+    cache_salt: true
     overload:
       max_requests_waiting: 20
       clear_requests_waiting: 10
