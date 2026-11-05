@@ -21,6 +21,7 @@ shim:
   - /v1/embeddings
   - /v1/models
   - /v1/videos/sync
+  - /metrics
   tls-mode: cert-proxy
   tls-challenge: dns
   tls-own-san-domain: true
@@ -44,7 +45,7 @@ gpus: 0
 models: []
 containers:
 - name: router
-  image: ghcr.io/aptos-labs/confidential-model-router@sha256:0954949de2a7912ffc0281de63d0d4da96ffa68c9f022f825f6e4c772057c8b1
+  image: ghcr.io/aptos-labs/confidential-model-router@sha256:3d2cec57acf290981a27a7d966d8483dc0ad0afddba69d34cb0b76c2994b4faf
   ipc: private
   restart: always
   networks:
@@ -53,13 +54,15 @@ containers:
   - -l=8089
   - -C=https://api.inference.aptoslabs.com/
   - -usage-reporter-id=model-router
-  - -i=https://raw.githubusercontent.com/aptos-labs/confidential-inference-router/v0.0.11/config.yml@sha256:703d18737c5f7058a4c5d6d74f0ede1b90ddc9dce1ff3e583a517b6650132e77
-  - -u=https://raw.githubusercontent.com/aptos-labs/confidential-inference-router/v0.0.11/config.yml@sha256:703d18737c5f7058a4c5d6d74f0ede1b90ddc9dce1ff3e583a517b6650132e77
+  - -i=https://raw.githubusercontent.com/aptos-labs/confidential-inference-router/v0.0.12/config.yml@sha256:2b4543e001622fd7d1074ba4b500da69e41fcfba7e0440574706c04dbd7802b5
+  - -u=https://raw.githubusercontent.com/aptos-labs/confidential-inference-router/v0.0.12/config.yml@sha256:2b4543e001622fd7d1074ba4b500da69e41fcfba7e0440574706c04dbd7802b5
   - -d=router.inference.aptoslabs.com
   secrets:
   - USAGE_REPORTER_SECRET
   - USAGE_CONTEXT_SECRET
   - INFERENCE_DELEGATION_SECRET
+  - GLM_BACKEND_API_KEY
+  - METRICS_API_KEY
   healthcheck:
     test:
     - CMD

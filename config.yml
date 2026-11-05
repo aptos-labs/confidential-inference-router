@@ -22,6 +22,7 @@ models:
       - host0.inference.aptoslabs.com
   glm-5.3:
     repo: aptos-labs/confidential-glm-5-3-prod
+    backend_auth_env: GLM_BACKEND_API_KEY
     enclaves:
       - host1.inference.aptoslabs.com
     cache_salt: true
