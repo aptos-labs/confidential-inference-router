@@ -36,9 +36,19 @@ router uses `router.inference.aptoslabs.com`; never send host0's SNI to this rou
 measured shim includes authenticated multipart `/v1/videos/sync` passthrough. Cosmos3-Super
 remains in the earlier `confidential-qwen-cosmos-prod` releases and is not routed here.
 
-The patched image (`sha256:0954949de2a7912ffc0281de63d0d4da96ffa68c9f022f825f6e4c772057c8b1`)
-is published through GHCR from source commit `9d9f5105e4635d1244f960d41b82ff044985c787`.
-The package is anonymously pullable (verified 2026-10-05). Do not embed registry credentials
+## GLM-5.3 model
+
+`glm-5.3` maps to the `host1.inference.aptoslabs.com` Model CVM and its
+`confidential-glm-5-3-prod` release repository. Since v0.0.11 it sets `cache_salt: true`.
+Since v0.0.12 the router authenticates to host1 with a scoped backend credential
+(`backend_auth_env: GLM_BACKEND_API_KEY`) and keeps the customer identity for usage
+attribution. `/metrics` requires a bearer key.
+
+## Router image
+
+The patched image (`sha256:3d2cec57acf290981a27a7d966d8483dc0ad0afddba69d34cb0b76c2994b4faf`)
+is published through GHCR from source commit `7fb4911fc71b86f84ff4272088f46e500fda6799`.
+The package is anonymously pullable (verified 2026-11-06). Do not embed registry credentials
 in the CVM or use the staging router's secrets.
 
 ## License and source
@@ -47,7 +57,7 @@ The router container runs Aptos Labs' modified version of
 [tinfoilsh/confidential-model-router](https://github.com/tinfoilsh/confidential-model-router),
 licensed under the GNU Affero General Public License v3. The Corresponding Source of the
 image pinned in `tinfoil-config.yml` is source commit
-[`9d9f5105e4635d1244f960d41b82ff044985c787`](https://github.com/aptos-labs/confidential-model-router/tree/9d9f5105e4635d1244f960d41b82ff044985c787)
+[`7fb4911fc71b86f84ff4272088f46e500fda6799`](https://github.com/aptos-labs/confidential-model-router/tree/7fb4911fc71b86f84ff4272088f46e500fda6799)
 in [aptos-labs/confidential-model-router](https://github.com/aptos-labs/confidential-model-router).
 Router images built from that repository after 2026-10-05 also return the source URL of
 the running build in the `X-Source-Code` response header and at `GET /source`.
