@@ -44,6 +44,16 @@ Since v0.0.12 the router authenticates to host1 with a scoped backend credential
 (`backend_auth_env: GLM_BACKEND_API_KEY`) and keeps the customer identity for usage
 attribution. `/metrics` requires a bearer key.
 
+## Attestation collateral
+
+Since v0.0.13 the measured shim fetches attestation collateral from
+`https://atc.inference.aptoslabs.com` (the `atc` field in `tinfoil-config.yml`). That
+service is `rust/crates/inference-atc` in aptos-labs/atlas. For a nonce-bound attestation
+request it supplies the Intel PCS collateral and the Sigstore code-provenance and
+hardware-measurement bundles. It verifies nothing itself: clients verify every signature.
+If the shim cannot obtain collateral, nonce-bound attestation requests fail with 503.
+v0.0.13 changes only this field. The image and model map are the same as in v0.0.12.
+
 ## Router image
 
 The patched image (`sha256:3d2cec57acf290981a27a7d966d8483dc0ad0afddba69d34cb0b76c2994b4faf`)
