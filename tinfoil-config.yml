@@ -26,6 +26,7 @@ shim:
   tls-challenge: dns
   tls-own-san-domain: true
   control-plane: https://api.inference.aptoslabs.com/
+  atc: https://atc.inference.aptoslabs.com
 cvm-network:
   inbound-ports:
   - 443
