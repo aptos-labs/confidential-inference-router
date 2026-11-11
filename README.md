@@ -41,6 +41,20 @@ attribution. `/metrics` requires a bearer key.
 Since v0.0.14 `cache_route.mode` is `enforced`: the router sends the requests of one
 conversation to the same host, so that later turns reuse the prefix cache of that host.
 
+Since v0.0.15 the router image retries a request on the other host when a host fails before
+any response byte reached the client (a transport error without a response, or status 502,
+503 or 504). The model map of v0.0.15 also turns on three options of that image:
+
+- `health_probe_path: /health`: after a host's circuit opens, a client request probes the
+  host only after its health endpoint answered 200. A host that joins while it still loads
+  its model gets no client request until then.
+- `balance: least_inflight`: a request without a sticky pick goes to the host with the
+  fewest requests in flight at the router, not to a random host.
+- `cache_route.max_inflight_delta: 2`: a sticky request leaves its warm host when that host
+  has more than 2 requests in flight above the other host. It then loses its prefix cache
+  on the warm host. A load test on 2026-11-11 with 8 long conversations showed the reason:
+  without the cap one host took almost every cold prompt while the other host was idle.
+
 `qwen3-omni` and `minimax-h3-fl2va` were removed in v0.0.14. Their Model CVM on host0 was
 stopped on 2026-11-11. Earlier releases of this repository keep their entries.
 
@@ -56,9 +70,11 @@ v0.0.13 changes only this field. The image and model map are the same as in v0.0
 
 ## Router image
 
-The patched image (`sha256:3d2cec57acf290981a27a7d966d8483dc0ad0afddba69d34cb0b76c2994b4faf`)
-is published through GHCR from source commit `7fb4911fc71b86f84ff4272088f46e500fda6799`.
-The package is anonymously pullable (verified 2026-11-06). Do not embed registry credentials
+The patched image (`sha256:897dff38ddcd9871874f9e09ac590370f77cd394c6da0ae6dce8c60f7ee02990`)
+is published through GHCR from source commit `21f29e4cb40dad49dab27900bde0c2f78c7ec82b`.
+The package is anonymously pullable (verified 2026-11-11). Releases up to v0.0.14 pin the image
+`sha256:3d2cec57acf290981a27a7d966d8483dc0ad0afddba69d34cb0b76c2994b4faf` from source commit
+`7fb4911fc71b86f84ff4272088f46e500fda6799`. Do not embed registry credentials
 in the CVM or use the staging router's secrets.
 
 ## License and source
@@ -67,7 +83,7 @@ The router container runs Aptos Labs' modified version of
 [tinfoilsh/confidential-model-router](https://github.com/tinfoilsh/confidential-model-router),
 licensed under the GNU Affero General Public License v3. The Corresponding Source of the
 image pinned in `tinfoil-config.yml` is source commit
-[`7fb4911fc71b86f84ff4272088f46e500fda6799`](https://github.com/aptos-labs/confidential-model-router/tree/7fb4911fc71b86f84ff4272088f46e500fda6799)
+[`21f29e4cb40dad49dab27900bde0c2f78c7ec82b`](https://github.com/aptos-labs/confidential-model-router/tree/21f29e4cb40dad49dab27900bde0c2f78c7ec82b)
 in [aptos-labs/confidential-model-router](https://github.com/aptos-labs/confidential-model-router).
 Router images built from that repository after 2026-10-05 also return the source URL of
 the running build in the `X-Source-Code` response header and at `GET /source`.
