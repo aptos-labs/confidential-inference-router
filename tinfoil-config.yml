@@ -46,7 +46,7 @@ gpus: 0
 models: []
 containers:
 - name: router
-  image: ghcr.io/aptos-labs/confidential-model-router@sha256:3d2cec57acf290981a27a7d966d8483dc0ad0afddba69d34cb0b76c2994b4faf
+  image: ghcr.io/aptos-labs/confidential-model-router@sha256:897dff38ddcd9871874f9e09ac590370f77cd394c6da0ae6dce8c60f7ee02990
   ipc: private
   restart: always
   networks:
@@ -55,8 +55,8 @@ containers:
   - -l=8089
   - -C=https://api.inference.aptoslabs.com/
   - -usage-reporter-id=model-router
-  - -i=https://raw.githubusercontent.com/aptos-labs/confidential-inference-router/v0.0.14/config.yml@sha256:672b70a850c044d7c789210f5439fddf5c712ec826bd9ceef91b0a071570e9f0
-  - -u=https://raw.githubusercontent.com/aptos-labs/confidential-inference-router/v0.0.14/config.yml@sha256:672b70a850c044d7c789210f5439fddf5c712ec826bd9ceef91b0a071570e9f0
+  - -i=https://raw.githubusercontent.com/aptos-labs/confidential-inference-router/v0.0.15/config.yml@sha256:37f3fea6158cb21c206ee52be06ccaec2c4efad2be38f01e5f2119e18a0b60b5
+  - -u=https://raw.githubusercontent.com/aptos-labs/confidential-inference-router/v0.0.15/config.yml@sha256:37f3fea6158cb21c206ee52be06ccaec2c4efad2be38f01e5f2119e18a0b60b5
   - -d=router.inference.aptoslabs.com
   secrets:
   - USAGE_REPORTER_SECRET

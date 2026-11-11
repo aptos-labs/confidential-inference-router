@@ -6,6 +6,8 @@ models:
       - host1.inference.aptoslabs.com
       - host0.inference.aptoslabs.com
     cache_salt: true
+    health_probe_path: /health
+    balance: least_inflight
     overload:
       max_requests_waiting: 20
       clear_requests_waiting: 10
@@ -18,4 +20,4 @@ models:
       retention_window_minutes: 60
       min_prompt_bytes: 4096
       split_threshold_rpm: 10
-      max_inflight_delta: -1
+      max_inflight_delta: 2
