@@ -1,30 +1,10 @@
 models:
-  qwen3-omni:
-    repo: aptos-labs/confidential-qwen-minimax-prod
-    enclaves:
-      - host0.inference.aptoslabs.com
-    overload:
-      max_requests_waiting: 20
-      clear_requests_waiting: 10
-      retry_after_minutes: 1
-    rate_limit:
-      max_requests_per_minute: 60
-      hard_max_requests_per_minute: 120
-    cache_route:
-      mode: "off"
-      retention_window_minutes: 60
-      min_prompt_bytes: 4096
-      split_threshold_rpm: 10
-      max_inflight_delta: -1
-  minimax-h3-fl2va:
-    repo: aptos-labs/confidential-qwen-minimax-prod
-    enclaves:
-      - host0.inference.aptoslabs.com
   glm-5.3:
     repo: aptos-labs/confidential-glm-5-3-prod
     backend_auth_env: GLM_BACKEND_API_KEY
     enclaves:
       - host1.inference.aptoslabs.com
+      - host0.inference.aptoslabs.com
     cache_salt: true
     overload:
       max_requests_waiting: 20
@@ -34,7 +14,7 @@ models:
       max_requests_per_minute: 60
       hard_max_requests_per_minute: 120
     cache_route:
-      mode: "off"
+      mode: "enforced"
       retention_window_minutes: 60
       min_prompt_bytes: 4096
       split_threshold_rpm: 10

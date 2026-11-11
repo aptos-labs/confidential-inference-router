@@ -28,21 +28,21 @@ inference fleet. Plan and runbooks: aptos-labs/atlas `deploy/h200-inference/`.
 The config hash can be computed before publication. Both files may use the same new
 release tag; no follow-up release is needed if those exact bytes are published.
 
-## Qwen/MiniMax models
-
-`qwen3-omni` and `minimax-h3-fl2va` map to the shared `host0.inference.aptoslabs.com`
-Model CVM and its `confidential-qwen-minimax-prod` release repository. The client-facing
-router uses `router.inference.aptoslabs.com`; never send host0's SNI to this router. The
-measured shim includes authenticated multipart `/v1/videos/sync` passthrough. Cosmos3-Super
-remains in the earlier `confidential-qwen-cosmos-prod` releases and is not routed here.
-
 ## GLM-5.3 model
 
-`glm-5.3` maps to the `host1.inference.aptoslabs.com` Model CVM and its
-`confidential-glm-5-3-prod` release repository. Since v0.0.11 it sets `cache_salt: true`.
-Since v0.0.12 the router authenticates to host1 with a scoped backend credential
+`glm-5.3` maps to two Model CVMs, `host1.inference.aptoslabs.com` and
+`host0.inference.aptoslabs.com` (since v0.0.14), and to the `confidential-glm-5-3-prod`
+release repository. Both hosts must run the latest release of that repository: the router
+accepts one measurement per model. Since v0.0.11 the entry sets `cache_salt: true`.
+Since v0.0.12 the router authenticates to the model hosts with a scoped backend credential
 (`backend_auth_env: GLM_BACKEND_API_KEY`) and keeps the customer identity for usage
 attribution. `/metrics` requires a bearer key.
+
+Since v0.0.14 `cache_route.mode` is `enforced`: the router sends the requests of one
+conversation to the same host, so that later turns reuse the prefix cache of that host.
+
+`qwen3-omni` and `minimax-h3-fl2va` were removed in v0.0.14. Their Model CVM on host0 was
+stopped on 2026-11-11. Earlier releases of this repository keep their entries.
 
 ## Attestation collateral
 
